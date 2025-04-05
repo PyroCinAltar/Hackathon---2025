@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACKATHON GAME</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="character-statsContainer">
+        <div id="main-game">
+            <div id="main-health">PLAYER HEALTH</div>
+            <div id="enemy-health">ENEMY HEALTH</div>
+        </div>
+        <div id="CharacterAbilitySelection">
+            <p id="Attacks">PLAYER Attacks</p>
+            <p id="Player-Item">ITEMS</p>
+        </div>
+        <div id="Character-Dialogue"></div>
+        
+        <script type="module" src="script.js">
+            // import kaplay
+            import kaplay from "https://unpkg.com/kaplay@3001/dist/kaplay.mjs";
+            // start kaplay
+            kaplay();
+        </script>
+    </div>
+</body>
