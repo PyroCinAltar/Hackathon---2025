@@ -100,7 +100,7 @@ let rouge = {
         },
 
         rougeStab: {
-            Dmg: function () { return rouge.Attack + 1},
+            Dmg: function () { return rouge.Attack + 1 },
             Acc: 90,
             Type: 'Physical'
         }
@@ -208,9 +208,10 @@ loadFontForGemici()
 
 
 function loadFontForGemici() {
-    if (enemy === Gemici) {
+    // Check if the current enemy is Gemici based on a unique property
+    if (enemy.Weapon && enemy.Weapon.Name === "Computer") {
         document.body.classList.add("underdog-regular");
-        document.body.style.fontFamily = "Underdog Regular";
+        document.body.style.fontFamily = "'Underdog', sans-serif";
         console.log("Gemici font applied.");
     } else {
         document.body.classList.remove("underdog-regular");
@@ -330,12 +331,16 @@ document.addEventListener("keydown", (event) => {
                 defeatMessage.textContent = "Enemy is defeated";
                 dialogueContainer.appendChild(defeatMessage);
                 manageDialogueOverflow();
+
                 currentEnemyIndex++;
                 if (currentEnemyIndex < enemies.length) {
                     enemy = enemies[currentEnemyIndex];
                     dynamicEnemy = enemies[currentEnemyIndex].HP;
                     enemyImage = enemiesImage[currentEnemyIndex];
                     document.getElementById("img-enemy").src = enemyImage;
+
+                    // Reapply font logic for the new enemy
+                    loadFontForGemici();
                 } else {
                     const victoryMessage = document.createElement("p");
                     victoryMessage.textContent = "Congratulations! You have defeated all enemies!";
@@ -347,26 +352,26 @@ document.addEventListener("keydown", (event) => {
             }
         } else if (selectedAbility.textContent === 'Apple' || selectedAbility.textContent === "Chez Burger") {
             if (selectedAbility.textContent === "Apple" && appleCount > 0) {
-            dynamicPlayer = Math.min(player.HP, dynamicPlayer + appleHeal); // Ensure HP does not exceed max
-            appleCount--;
-            const healMessage = document.createElement("p");
-            healMessage.textContent = "You used an Apple and restored HP!";
-            dialogueContainer.appendChild(healMessage);
-            
-            manageDialogueOverflow();
+                dynamicPlayer = Math.min(player.HP, dynamicPlayer + appleHeal); // Ensure HP does not exceed max
+                appleCount--;
+                const healMessage = document.createElement("p");
+                healMessage.textContent = "You used an Apple and restored HP!";
+                dialogueContainer.appendChild(healMessage);
+
+                manageDialogueOverflow();
             } else if (selectedAbility.textContent === "Chez Burger" && burgerCount > 0) {
-            dynamicPlayer = Math.min(player.HP, dynamicPlayer + burgerHeal); // Ensure HP does not exceed max
-            burgerCount--;
-            const healMessage = document.createElement("p");
-            healMessage.textContent = "You used a Chez Burger and restored HP!";
-            dialogueContainer.appendChild(healMessage);
-            
-            manageDialogueOverflow();
+                dynamicPlayer = Math.min(player.HP, dynamicPlayer + burgerHeal); // Ensure HP does not exceed max
+                burgerCount--;
+                const healMessage = document.createElement("p");
+                healMessage.textContent = "You used a Chez Burger and restored HP!";
+                dialogueContainer.appendChild(healMessage);
+
+                manageDialogueOverflow();
             } else {
-            const noItemMessage = document.createElement("p");
-            noItemMessage.textContent = "You don't have enough of that item!";
-            dialogueContainer.appendChild(noItemMessage);
-            manageDialogueOverflow();
+                const noItemMessage = document.createElement("p");
+                noItemMessage.textContent = "You don't have enough of that item!";
+                dialogueContainer.appendChild(noItemMessage);
+                manageDialogueOverflow();
             }
             document.querySelector("#main-health").textContent = `Player HP: ${dynamicPlayer}/${player.HP}`;
         }
@@ -421,10 +426,9 @@ function enemyTurn() {
         defeatMessage.textContent = "You have been defeated. Game Over!";
         dialogueContainer.appendChild(defeatMessage);
         manageDialogueOverflow();
-        document.removeEventListener("keydown", event); // Disable further player input
+        document.removeEventListener("keydown", event); // Disable further player input   }
     }
 }
-
 
 if (dynamicEnemy <= 0 && enemy === Gemici) {
     if (dynamicEnemy <= 0) {
@@ -461,5 +465,3 @@ document.querySelector("#enemy-health").textContent = `Enemy HP: ${dynamicEnemy}
 if (dynamicPlayer <= 0) {
     window.location.href = "/Layout/Game Ove/index.html";
 }
-
-
