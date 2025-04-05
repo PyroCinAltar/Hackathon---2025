@@ -1,6 +1,6 @@
 // Player
 let player = {
-    HP: 35,
+    HP: 40,
     Attack: 4,
     Magic: 4,
     Defense: 2,
@@ -208,14 +208,24 @@ loadFontForGemici()
 
 
 function loadFontForGemici() {
+    const backgroundMusic = document.getElementById('background-music');
+
     // Check if the current enemy is Gemici based on a unique property
     if (enemy.Weapon && enemy.Weapon.Name === "Computer") {
         document.body.classList.add("underdog-regular");
         document.body.style.fontFamily = "'Underdog', sans-serif";
-        console.log("Gemici font applied.");
+
+        // Change the music for Gemici
+        backgroundMusic.src = "/Layout/Music/Battle Against A True Hero - Toby Fox.mp3"; // Path to Gemici's theme
+        backgroundMusic.play(); // Restart playback
+        console.log("Gemici font and music applied.");
     } else {
         document.body.classList.remove("underdog-regular");
-        console.log("Gemici font removed.");
+
+        // Revert to the default music
+        backgroundMusic.src = "/Layout/Music/Exit This Earth's Atomosphere - Camellia.mp3"; // Default music path
+        backgroundMusic.play(); // Restart playback
+        console.log("Gemici font and music removed.");
     }
 }
 
@@ -462,6 +472,29 @@ document.querySelector("#enemy-health").textContent = `Enemy HP: ${dynamicEnemy}
 // document.head.querySelectorAll('CharacterAbilitySelection').appendChild(style);
 
 //Game over Screen
-if (dynamicPlayer <= 0) {
-    window.location.href = "/Layout/Game Ove/index.html";
+if (dynamicPlayer <= 0 || dynamicPlayer === NaN) {
+    window.location.href = "/Users/nicholas/Desktop/Hackathon - 2025/Layout/GameOver/index.html";
 }
+
+if (dynamicPlayer > 0 && enemy === Gemici && dynamicEnemy <= 0) {
+    window.location.href = "/Users/nicholas/Desktop/Hackathon - 2025/Layout/Victory/index.html"
+    document.removeEventListener("keydown", event); // Disable further player input
+}
+
+// Get the audio element
+const backgroundMusic = document.getElementById('background-music');
+
+// Ensure the default music plays correctly
+document.body.addEventListener('click', () => {
+    const defaultMusic = "/Layout/Music/Exit This Earth's Atomosphere - Camellia.mp3";
+
+    // Check if the current music is already the default music
+    if (!backgroundMusic.src.includes(defaultMusic)) {
+        backgroundMusic.src = defaultMusic; // Set the default music
+    }
+
+    // Play the music if it's paused
+    if (backgroundMusic.paused) {
+        backgroundMusic.play();
+    }
+});
