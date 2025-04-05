@@ -3,7 +3,7 @@ let player = {
     HP: 35,
     Attack: 4,
     Magic: 4,
-    Defense: 4,
+    Defense: 2,
     Weapon: {
         Name: 'Sword',
         weaponBonus: 3
@@ -29,8 +29,8 @@ let player = {
 
 
         Items: {
-            Apple: 5,
-            ChezBurger: 1
+            Apple: 7,
+            ChezBurger: 2
         },
     }
 }
@@ -40,8 +40,8 @@ let player = {
 // Enemies
 let pyroSlime = {
     HP: 35,
-    Attack: 4,
-    Defense: 5,
+    Attack: 3,
+    Defense: 3,
     Magic: 4,
     Weapon: null,
     attacks: {
@@ -61,9 +61,9 @@ let pyroSlime = {
 
 let spider = {
     HP: 30,
-    Attack: 4,
-    Defense: 1,
-    Magic: 2,
+    Attack: 2,
+    Defense: 2,
+    Magic: 0,
     Weapon: null,
     attacks: {
 
@@ -76,7 +76,7 @@ let spider = {
         spiderVenomBite: {
             Dmg: function () { return spider.Attack },
             Acc: 90,
-            Type: 'Magic',
+            Type: 'Physical',
         },
 
     }
@@ -84,7 +84,7 @@ let spider = {
 
 let rouge = {
     HP: 25,
-    Attack: 5,
+    Attack: 3,
     Defense: 2,
     Magic: 0,
     Weapon: {
@@ -100,7 +100,7 @@ let rouge = {
         },
 
         rougeStab: {
-            Dmg: function () { return rouge.Attack },
+            Dmg: function () { return rouge.Attack + 1},
             Acc: 90,
             Type: 'Physical'
         }
@@ -108,16 +108,16 @@ let rouge = {
 }
 
 let electroMan = {
-    HP: 30,
+    HP: 35,
     Attack: 2,
-    Defense: 3,
+    Defense: 4,
     Magic: 4,
     Weapon: null,
-    Attacks: {
+    attacks: {
 
 
         electroManBlast: {
-            Dmg: function () { return electroMan.Magic * 3 },
+            Dmg: function () { return electroMan.Magic * 2 },
             Acc: 70,
             Type: 'Magic'
         },
@@ -132,9 +132,9 @@ let electroMan = {
 
 let hydroElemental = {
     HP: 40,
-    Attack: 1,
-    Defense: 0,
-    Magic: 6,
+    Attack: 3,
+    Defense: 2,
+    Magic: 4,
     Weapon: null,
     attacks: {
         hydroElementalAquaCutter: {
@@ -153,9 +153,9 @@ let hydroElemental = {
 
 const Gemici = {
     HP: 60,
-    Attack: 5,
-    Defense: 3,
-    Magic: 7,
+    Attack: 4,
+    Defense: 2,
+    Magic: 6,
     Weapon: {
         Name: 'Computer',
         weaponBonus: 1
@@ -163,13 +163,13 @@ const Gemici = {
     attacks: {
 
         gemiciProgram: {
-            Dmg: function () { return gemici.Magic + gemici.Weapon.weaponBonus },
+            Dmg: function () { return Gemici.Magic + Gemici.Weapon.weaponBonus },
             Acc: 90,
             Type: 'Magic'
         },
 
         gemiciSecretWifi: {
-            Dmg: function () { return gemici.Magic + (gemici.weaponBonus * 3) },
+            Dmg: function () { return Gemici.Magic + (Gemici.weaponBonus * 3) },
             Acc: 90,
             Type: 'Magic'
         }
@@ -204,11 +204,13 @@ let dynamicEnemy = enemies[currentEnemyIndex].HP
 
 
 
+loadFontForGemici()
 
 
 function loadFontForGemici() {
-    if (enemy === 'Gemici') {
+    if (enemy === Gemici) {
         document.body.classList.add("underdog-regular");
+        document.body.style.fontFamily = "Underdog Regular";
         console.log("Gemici font applied.");
     } else {
         document.body.classList.remove("underdog-regular");
@@ -250,7 +252,8 @@ function calculateDamage(attack, target) {
     critRoll()
 
     if (critChance) {
-        damage *= critMultiplier;
+        damage *= critMultiplier
+        Math.floor(damage);
         const critMessage = document.createElement("p");
         critMessage.textContent = "Critical hit!";
         dialogueContainer.appendChild(critMessage);
@@ -263,10 +266,10 @@ function calculateDamage(attack, target) {
 
 let appleCount = player.Attacks.Items.Apple;
 let burgerCount = player.Attacks.Items.ChezBurger;
-let appleHeal = 5;
-let burgerHeal = 15;
+let appleHeal = 10;
+let burgerHeal = 35;
 
-
+let playerTurnPass = false
 
 
 
@@ -302,53 +305,62 @@ document.addEventListener("keydown", (event) => {
         selectedAbilityIndex = (selectedAbilityIndex + 1) % abilityDivs.length;
         updateAbilityStyles();
     } else if (event.key === "Enter") {
-        
         // Confirm selection
         const selectedAbility = abilityDivs[selectedAbilityIndex];
         if (selectedAbility.textContent === "Basic Attack" || selectedAbility.textContent === "Strong Attack" || selectedAbility.textContent === "Wind Blade") {
             const attack = player.Attacks[`player${selectedAbility.textContent.replace(" ", "")}`];
             accuracyRoll(attack);
             if (accuracyHit) {
-            const damage = calculateDamage(attack, enemies[currentEnemyIndex]);
-            dynamicEnemy -= damage;
-            const attackMessage = document.createElement("p");
-            attackMessage.textContent = `You used ${selectedAbility.textContent}, dealing ${damage} damage!`;
-            dialogueContainer.appendChild(attackMessage);
-            manageDialogueOverflow();
+                const damage = calculateDamage(attack, enemy);
+                dynamicEnemy -= damage;
+                const attackMessage = document.createElement("p");
+                attackMessage.textContent = `You used ${selectedAbility.textContent}, dealing ${damage} damage!`;
+                dialogueContainer.appendChild(attackMessage);
+                manageDialogueOverflow();
             } else {
-            const missMessage = document.createElement("p");
-            missMessage.textContent = `${selectedAbility.textContent} missed!`;
-            dialogueContainer.appendChild(missMessage);
-            manageDialogueOverflow();
+                const missMessage = document.createElement("p");
+                missMessage.textContent = `${selectedAbility.textContent} missed!`;
+                dialogueContainer.appendChild(missMessage);
+                manageDialogueOverflow();
             }
             document.querySelector("#enemy-health").textContent = `Enemy HP: ${dynamicEnemy}/${enemies[currentEnemyIndex].HP}`;
 
             if (dynamicEnemy <= 0) {
-            const defeatMessage = document.createElement("p");
-            defeatMessage.textContent = "Enemy is defeated";
-            dialogueContainer.appendChild(defeatMessage);
-            manageDialogueOverflow();
-            currentEnemyIndex++;
-            enemy = enemies[currentEnemyIndex];
-            dynamicEnemy = enemies[currentEnemyIndex].HP
-            enemyImage = enemiesImage[currentEnemyIndex];
-            document.getElementById("img-enemy").src = enemyImage;
+                const defeatMessage = document.createElement("p");
+                defeatMessage.textContent = "Enemy is defeated";
+                dialogueContainer.appendChild(defeatMessage);
+                manageDialogueOverflow();
+                currentEnemyIndex++;
+                if (currentEnemyIndex < enemies.length) {
+                    enemy = enemies[currentEnemyIndex];
+                    dynamicEnemy = enemies[currentEnemyIndex].HP;
+                    enemyImage = enemiesImage[currentEnemyIndex];
+                    document.getElementById("img-enemy").src = enemyImage;
+                } else {
+                    const victoryMessage = document.createElement("p");
+                    victoryMessage.textContent = "Congratulations! You have defeated all enemies!";
+                    dialogueContainer.appendChild(victoryMessage);
+                    manageDialogueOverflow();
+                    document.removeEventListener("keydown", event); // Disable further player input
+                    return;
+                }
             }
-
-        } else if (selectedAbility.textContent === "Apple" || selectedAbility.textContent === "Chez Burger") {
+        } else if (selectedAbility.textContent === 'Apple' || selectedAbility.textContent === "Chez Burger") {
             if (selectedAbility.textContent === "Apple" && appleCount > 0) {
-            dynamicPlayer = Math.min(player.HP, dynamicPlayer + appleHeal);
+            dynamicPlayer = Math.min(player.HP, dynamicPlayer + appleHeal); // Ensure HP does not exceed max
             appleCount--;
             const healMessage = document.createElement("p");
             healMessage.textContent = "You used an Apple and restored HP!";
             dialogueContainer.appendChild(healMessage);
+            
             manageDialogueOverflow();
             } else if (selectedAbility.textContent === "Chez Burger" && burgerCount > 0) {
-            dynamicPlayer = Math.min(player.HP, dynamicPlayer + burgerHeal);
+            dynamicPlayer = Math.min(player.HP, dynamicPlayer + burgerHeal); // Ensure HP does not exceed max
             burgerCount--;
             const healMessage = document.createElement("p");
             healMessage.textContent = "You used a Chez Burger and restored HP!";
             dialogueContainer.appendChild(healMessage);
+            
             manageDialogueOverflow();
             } else {
             const noItemMessage = document.createElement("p");
@@ -358,19 +370,39 @@ document.addEventListener("keydown", (event) => {
             }
             document.querySelector("#main-health").textContent = `Player HP: ${dynamicPlayer}/${player.HP}`;
         }
-
+        critChance = false; // Reset crit chance after use
+        accuracyHit = false; // Reset accuracy hit after use
+        playerTurnPass = true; // Set player turn to pass
+        if (playerTurnPass) {
+            enemyTurn();
+            playerTurnPass = false; // Reset player turn pass
+        }
     }
-});
+}
+)
 
 // Initialize the ability styles
 updateAbilityStyles();
 
 function enemyTurn() {
-    let enemyAttack = enemy.attacks[Object.keys(enemy.attacks)[Math.floor(Math.random() * Object.keys(enemy.attacks).length)]];
+    // Ensure the enemy and its attacks are defined
+    if (!enemy || !enemy.attacks) {
+        console.error("Enemy or enemy attacks are undefined.");
+        return; // Exit the function to prevent further errors
+    }
+
+    // Select a random attack from the enemy's attacks
+    let attackKeys = Object.keys(enemy.attacks); // Get all attack keys
+    let randomIndex = Math.floor(Math.random() * attackKeys.length); // Pick a random index
+    let enemyAttack = enemy.attacks[attackKeys[randomIndex]]; // Get the attack object
+
+    // Pass the correct attack to accuracyRoll
     accuracyRoll(enemyAttack);
+
     if (accuracyHit) {
         let damage = calculateDamage(enemyAttack, player);
         dynamicPlayer -= damage;
+        document.querySelector("#main-health").textContent = `Player HP: ${dynamicPlayer}/${player.HP}`;
         console.log(`Enemy attacks! You take ${damage} damage!`);
         const enemyAttackMessage = document.createElement("p");
         enemyAttackMessage.textContent = `Enemy attacks! You take ${damage} damage!`;
@@ -384,24 +416,50 @@ function enemyTurn() {
         manageDialogueOverflow();
     }
 
-
     if (dynamicPlayer <= 0) {
-        console.log("Player is defeated");
-    }
-
-    
-}
-
-if (dynamicEnemy <= 0) {
-    if (enemy === Gemici) {
-        alert("Victory! You have defeated Gemici!");
+        const defeatMessage = document.createElement("p");
+        defeatMessage.textContent = "You have been defeated. Game Over!";
+        dialogueContainer.appendChild(defeatMessage);
+        manageDialogueOverflow();
+        document.removeEventListener("keydown", event); // Disable further player input
     }
 }
+
+
+if (dynamicEnemy <= 0 && enemy === Gemici) {
+    if (dynamicEnemy <= 0) {
+        const defeatMessage = document.createElement("p");
+        defeatMessage.textContent = "Enemy is defeated";
+        dialogueContainer.appendChild(defeatMessage);
+        manageDialogueOverflow();
+
+        // Check if the defeated enemy is Gemici
+        if (enemy === Gemici) {
+            const victoryMessage = document.createElement("p");
+            victoryMessage.textContent = "Congratulations! You have defeated Gemici and won the game!";
+            dialogueContainer.appendChild(victoryMessage);
+            manageDialogueOverflow();
+            document.removeEventListener("keydown", event); // Disable further player input
+        }
+
+        // Move to the next enemy
+        currentEnemyIndex++;
+        enemy = enemies[currentEnemyIndex];
+        dynamicEnemy = enemies[currentEnemyIndex].HP;
+        enemyImage = enemiesImage[currentEnemyIndex];
+        document.getElementById("img-enemy").src = enemyImage;
+    }
+}
+
 
 // CHARACTER HEALTH 
 document.querySelector("#main-health").textContent = `Player HP: ${dynamicPlayer}/${player.HP}`;
-document.querySelector("#enemy-health").textContent = `Enemy HP: ${dynamicEnemy}/${dynamicEnemy}`;
+document.querySelector("#enemy-health").textContent = `Enemy HP: ${dynamicEnemy}/${enemies[currentEnemyIndex].HP}`;
 // document.head.querySelectorAll('CharacterAbilitySelection').appendChild(style);
 
+//Game over Screen
+if (dynamicPlayer <= 0) {
+    window.location.href = "/Layout/Game Ove/index.html";
+}
 
-loadFontForGemici()
+
