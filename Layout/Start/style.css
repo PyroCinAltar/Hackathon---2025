@@ -9,6 +9,8 @@
     color: #ffffff; /* White text for contrast */
     text-align: center;
     font-family: 'Pixelify Sans', sans-serif;
+    position: relative; /* To position sprites relative to the screen */
+    overflow: hidden;
 }
 
 #start-screen h1 {
@@ -39,4 +41,51 @@
     background-color: #ffffff;
     color: #2a2a3d;
     transform: scale(1.1);
+}
+
+/* Sprite Styling */
+.sprite {
+    position: absolute;
+    width: 150px; /* Increased size */
+    height: auto;
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+}
+
+.sprite:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+/* Randomized Positions */
+.sprite-top-left {
+    top: 5%;
+    left: 5%;
+}
+
+.sprite-top-right {
+    top: 10%;
+    right: 15%;
+}
+
+.sprite-bottom-left {
+    bottom: 15%;
+    left: 10%;
+}
+
+.sprite-bottom-right {
+    bottom: 5%;
+    right: 5%;
+}
+
+.sprite-center-left {
+    top: 50%;
+    left: 20%;
+    transform: translateY(-50%);
+}
+
+.sprite-center-right {
+    top: 50%;
+    right: 20%;
+    transform: translateY(-50%);
 }

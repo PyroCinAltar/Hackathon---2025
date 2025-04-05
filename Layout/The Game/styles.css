@@ -8,8 +8,10 @@
 /* Body Styling */
 body {
     font-family: 'Pixelify Sans', sans-serif;
-    background-color: #1e1e2f; /* Dark background for RPG feel */
-    color: #ffffff; /* White text for contrast */
+    background-color: #1e1e2f;
+    /* Dark background for RPG feel */
+    color: #ffffff;
+    /* White text for contrast */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,8 +23,10 @@ body {
 #character-statsContainer {
     width: 80%;
     max-width: 900px;
-    background-color: #2a2a3d; /* Slightly lighter background for contrast */
-    border: 5px solid #ffffff; /* White border for a retro RPG look */
+    background-color: #2a2a3d;
+    /* Slightly lighter background for contrast */
+    border: 5px solid #ffffff;
+    /* White border for a retro RPG look */
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -38,7 +42,8 @@ body {
 }
 
 /* Health Bars */
-#main-health, #enemy-health {
+#main-health,
+#enemy-health {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 10px 20px;
@@ -77,7 +82,7 @@ body {
     border: 3px solid #ffffff;
     border-radius: 10px;
     font-size: 1.2rem;
-    min-height:200px;
+    min-height: 200px;
     overflow-y: auto;
 }
 
@@ -96,6 +101,13 @@ body {
     transition: all 0.3s ease;
 }
 
+.selected {
+    background-color: #c8c3c3;
+    color: #2a2a3d;
+    transform: scale(1.1);
+}
+
+
 /* Scrollbar Styling for Dialogue */
 #Character-Dialogue::-webkit-scrollbar {
     width: 8px;
@@ -108,4 +120,19 @@ body {
 
 #Character-Dialogue::-webkit-scrollbar-track {
     background-color: #2a2a3d;
+}
+
+
+
+.pixelify-sans {
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.underdog-regular, .underdog-regular *{
+    font-family: "Underdog", system-ui;
+    font-weight: 600;
+    font-style: normal;
 }
