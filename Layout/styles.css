@@ -1,3 +1,9 @@
+div {
+    border: 2px solid black;
+    margin: 10px;
+    padding: 10px;
+}
+
 div#character-statsContainer {
     display: flex;
     flex-direction: column;
@@ -7,4 +13,4 @@ div#character-statsContainer {
     height: 100%;
     padding: 50px;
    border: 1px black solid; 
-} 
+}
