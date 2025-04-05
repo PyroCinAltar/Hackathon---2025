@@ -4,31 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>HACKATHON GAME - BTmon</title>
     <meta name="description" content="A simple game for Hackathon 2025.">
     <meta name="keywords" content="HTML, CSS, JavaScript, game, hackathon">
-    <meta name="author" content="Angadveer, Nickolas, Presly, and William">
+    <meta name="author" content="Angadveer, Nicholas, Presly, and William">
+
     <link rel="stylesheet" href="styles.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Underdog&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    
+
     <div id="character-statsContainer">
         <div id="main-game">
             <div id="main-health">PLAYER HEALTH</div>
             <div id="enemy-health">ENEMY HEALTH</div>
+            <img id="img-enemy" src="Sprites/Pyro_Slime.png" alt="Enemy">
         </div>
         <div id="CharacterAbilitySelection">
-            <p id="Attacks">PLAYER Attacks</p>
-            <p id="Player-Item">ITEMS</p>
+            <div id="Ability-1" class="Ability" onclick="">Basic Attack</div>
+            <div id="Ability-2" class="Ability" onclick="">Strong Attack</div>
+            <div id="Ability-3" class="Ability" onclick="">Wind Blade</div>
+            <div id="Ability-4" class="Ability" onclick="">Apple</div>
+            <div id="Ability-5" class="Ability" onclick="">Chez Burger</div>
         </div>
-        <div id="Character-Dialogue">DIALOGUE</div>
+        <div id="Character-Dialogue"></div>
     </div>
 
     <script src="script.js"></script>
-</body>
 
+
+    
+</body>
 </html>

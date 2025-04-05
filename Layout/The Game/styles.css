@@ -1,0 +1,111 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Pixelify Sans', sans-serif;
+    background-color: #1e1e2f; /* Dark background for RPG feel */
+    color: #ffffff; /* White text for contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Main Game Container */
+#character-statsContainer {
+    width: 80%;
+    max-width: 900px;
+    background-color: #2a2a3d; /* Slightly lighter background for contrast */
+    border: 5px solid #ffffff; /* White border for a retro RPG look */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Main Game Section */
+#main-game {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Health Bars */
+#main-health, #enemy-health {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #3e3e50;
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    width: 40%;
+}
+
+/* Enemy Image */
+#img-enemy {
+    width: 150px;
+    height: auto;
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+    background-color: #3e3e50;
+}
+
+/* Ability Selection */
+#CharacterAbilitySelection {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #3e3e50;
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    min-height: 50px;
+}
+
+/* Dialogue Box */
+#Character-Dialogue {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #3e3e50;
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    min-height:200px;
+    overflow-y: auto;
+}
+
+/* Abilities Selection */
+.Ability {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #2a2a3d;
+    border: 5px solid #ffffff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Scrollbar Styling for Dialogue */
+#Character-Dialogue::-webkit-scrollbar {
+    width: 8px;
+}
+
+#Character-Dialogue::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+#Character-Dialogue::-webkit-scrollbar-track {
+    background-color: #2a2a3d;
+}

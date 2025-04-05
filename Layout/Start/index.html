@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BTmon RPG - Start Screen</title>
+    <meta name="description" content="A simple game for Hackathon 2025.">
+    <meta name="keywords" content="CSS, JavaScript, game, hackathon">
+    <meta name="author" content="Angadveer, Nickolas, Presly, and William">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../game.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Underdog&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="start-screen">
+        <h1>Welcome to BTmon RPG</h1>
+        <p>A Hackathon 2025 Game</p>
+        <button id="start-button">Start Game</button>
+    </div>
+
+    <script>
+        // Redirect to the game page when the start button is clicked
+        document.getElementById("start-button").addEventListener("click", () => {
+            window.location.href = "/Layout/The Game/game.html"; // Update the path if necessary
+        });
+    </script>
+</body>
+
+</html>
